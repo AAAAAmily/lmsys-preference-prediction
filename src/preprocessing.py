@@ -36,3 +36,19 @@ def preprocess_data(df):
     df = create_label(df)
 
     return df
+
+def join_turns(turns):
+    return " ".join(
+        turn for turn in turns
+        if isinstance(turn, str)
+    )
+
+
+def create_text_fields(df):
+    df = df.copy()
+
+    df["prompt_text"] = df["prompt_list"].apply(join_turns)
+    df["a_text"] = df["response_a_list"].apply(join_turns)
+    df["b_text"] = df["response_b_list"].apply(join_turns)
+
+    return df
