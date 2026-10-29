@@ -31,12 +31,6 @@ def create_label(df):
     return df
 
 
-def preprocess_data(df):
-    df = parse_text_fields(df)
-    df = create_label(df)
-
-    return df
-
 def join_turns(turns):
     return " ".join(
         turn for turn in turns
@@ -52,3 +46,12 @@ def create_text_fields(df):
     df["b_text"] = df["response_b_list"].apply(join_turns)
 
     return df
+
+def preprocess_data(df):
+    df = parse_text_fields(df)
+    df = create_label(df)
+    df = create_text_fields(df)
+
+    return df
+
+
